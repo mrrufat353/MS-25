@@ -18,15 +18,15 @@ public class StudentService {
     private final StudentRepository studentRepository;
 
     public List<Student> getAllBy() {
-        return studentRepository.findAll(ageGreaterThan(20));
+        return studentRepository.findAll(ageGreaterThan());
     }
 
     public List<Student> getAllByName() {
-        return studentRepository.findAll(Specification.where(nameLike("Alihuseyn")).and(ageGreaterThan(20)));
+        return studentRepository.findAll(Specification.where(nameLike()).and(ageGreaterThan()));
     }
 
     public List<Student> jpaGreaterThan91() {
-        return studentRepository.findAll(jpaGreaterThan(91.0));
+        return studentRepository.findAll(jpaGreaterThan());
     }
 
     public List<Student> getAllByCriteria(List<SearchCriteria> dto) {
@@ -35,16 +35,16 @@ public class StudentService {
         return studentRepository.findAll(studentSpecification);
     }
 
-    private Specification<Student> ageGreaterThan(int age) {
-        return ((root, query, criteriaBuilder) -> criteriaBuilder.greaterThan(root.get(Student.Fields.age), age));
+    private Specification<Student> ageGreaterThan() {
+        return ((root, query, criteriaBuilder) -> criteriaBuilder.greaterThan(root.get(Student.Fields.age), 22));
     }
 
-    private Specification<Student> nameLike(String firstName) {
-        return ((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(Student.Fields.firstName), firstName));
+    private Specification<Student> nameLike() {
+        return ((root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(Student.Fields.firstName), "Mirrufat"));
     }
 
-    private Specification<Student> jpaGreaterThan(double gpa) {
-        return ((root, query, criteriaBuilder) -> criteriaBuilder.greaterThan(root.get(Student.Fields.gpa), gpa));
+    private Specification<Student> jpaGreaterThan() {
+        return ((root, query, criteriaBuilder) -> criteriaBuilder.greaterThan(root.get(Student.Fields.gpa), 81.0));
     }
 
 
